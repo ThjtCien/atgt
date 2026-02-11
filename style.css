@@ -1,79 +1,120 @@
 /* TỔNG THỂ */
+:root {
+    --primary-color: #2b6cb0;
+    --primary-dark: #1a365d;
+    --secondary-color: #63b3ed;
+    --accent-color: #f6e05e;
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --bg-light: #f7fafc;
+    --white: #ffffff;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    color: #333;
-    background-color: #f4f7f6;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 /* MENU ĐIỀU HƯỚNG */
 .thanh-menu {
-    background-color: #1a365d;
-    padding: 1rem 0;
+    background-color: var(--primary-dark);
+    padding: 0.75rem 0;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+    backdrop-filter: blur(10px);
 }
 
 .container-menu {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 24px;
 }
 
 .logo {
-    color: #fff;
-    font-size: 1.5rem;
-    font-weight: bold;
+    color: var(--white);
+    font-size: 1.6rem;
+    font-weight: 800;
     text-decoration: none;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .danh-sach-menu {
     display: flex;
     list-style: none;
-}
-
-.danh-sach-menu li {
-    margin-left: 15px;
+    gap: 8px;
 }
 
 .nut-menu {
-    background: none;
+    background: transparent;
     border: none;
-    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
     cursor: pointer;
-    font-size: 0.9rem;
-    padding: 5px 10px;
-    transition: 0.3s;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.nut-menu:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .nut-menu.dang-chon {
-    color: #63b3ed;
-    border-bottom: 2px solid #63b3ed;
+    color: var(--white);
+    background: var(--primary-color);
+    box-shadow: var(--shadow-sm);
 }
 
 /* NỘI DUNG CHÍNH */
 .noi-dung-chinh {
-    max-width: 1100px;
-    margin: 20px auto;
-    padding: 20px;
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 0 24px;
 }
 
 .trang-thanh-phan {
     display: none;
-    background: #fff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    background: var(--white);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .trang-thanh-phan.hien-thi {
@@ -82,212 +123,385 @@ body {
 
 /* BANNER */
 .banner-chinh {
-    background: linear-gradient(135deg, #2b6cb0, #2c5282);
+    background: linear-gradient(135deg, #2b6cb0 0%, #1a365d 100%);
     color: white;
     text-align: center;
-    padding: 40px;
-    border-radius: 15px;
-    margin-bottom: 30px;
+    padding: 60px 40px;
+    border-radius: 24px;
+    margin-bottom: 40px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-chinh::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    pointer-events: none;
 }
 
 .tieu-de-bao {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
+    font-size: 3rem;
+    margin-bottom: 15px;
+    font-weight: 800;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
 .hinh-minh-hoa {
     width: 100%;
-    max-width: 500px;
-    border-radius: 10px;
-    margin-top: 20px;
+    max-width: 600px;
+    border-radius: 20px;
+    margin-top: 30px;
+    box-shadow: var(--shadow-lg);
+    border: 5px solid rgba(255,255,255,0.2);
+    transition: var(--transition);
 }
 
-/* FORM */
+.hinh-minh-hoa:hover {
+    transform: scale(1.02);
+}
+
+/* FORM ĐĂNG KÝ */
 .khung-dang-ky {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #eee;
-    border-radius: 10px;
+    max-width: 550px;
+    margin: 40px auto 0;
+    padding: 35px;
+    background: var(--bg-light);
+    border-radius: 18px;
+    border: 1px solid #e2e8f0;
 }
 
 .nhom-form {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .nhom-form label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--primary-dark);
 }
 
 .nhom-form input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 12px 16px;
+    border: 2px solid #edf2f7;
+    border-radius: 10px;
+    transition: var(--transition);
+    font-size: 1rem;
+}
+
+.nhom-form input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(99, 179, 237, 0.2);
 }
 
 .nut-gui {
     width: 100%;
-    padding: 10px;
-    background-color: #2b6cb0;
+    padding: 14px;
+    background: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: var(--transition);
+    margin-top: 10px;
 }
 
-/* BẢNG */
+.nut-gui:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(43, 108, 176, 0.4);
+}
+
+/* BẢNG & DANH SÁCH */
 table {
     width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 30px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 16px;
     text-align: left;
+    border-bottom: 1px solid #edf2f7;
 }
 
 th {
-    background-color: #f8f9fa;
+    background-color: #edf2f7;
+    color: var(--primary-dark);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.85rem;
 }
 
-/* AUDIO & VIDEO */
-.vung-video {
-    margin-top: 15px;
+tr:last-child td {
+    border-bottom: none;
 }
 
-.khung-am-thanh {
-    margin-top: 15px;
-    background: #f0f4f8;
-    padding: 15px;
-    border-radius: 10px;
+tr:hover td {
+    background-color: #f8fafc;
 }
 
-audio {
+/* CHÂN TRANG (FOOTER) */
+.chan-trang {
+    background-color: var(--primary-dark);
+    color: #e2e8f0;
+    padding: 60px 0 30px;
+    margin-top: 60px;
+}
+
+.container-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 48px;
+}
+
+.footer-cot h3 {
+    color: var(--white);
+    margin-bottom: 25px;
+    font-size: 1.25rem;
+    font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-cot h3::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -8px;
+    width: 40px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    border-radius: 2px;
+}
+
+.footer-cot p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #cbd5e0;
+}
+
+.footer-cot ul li {
+    margin-bottom: 12px;
+    list-style: none;
+}
+
+.footer-cot ul li a {
+    color: #cbd5e0;
+    text-decoration: none;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.footer-cot ul li a:hover {
+    color: var(--secondary-color);
+    transform: translateX(5px);
+}
+
+.footer-ban-quyen {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* THẺ THÀNH VIÊN (GACHA CARDS) */
+.gacha-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.gacha-card {
+    position: relative;
+    border-radius: 24px;
+    padding: 35px 20px;
+    text-align: center;
+    color: white;
+    transition: var(--transition);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+}
+
+/* Màu nền dựa trên độ hiếm */
+.rank-5 {
+    background: linear-gradient(145deg, #d69e2e 0%, #744210 100%);
+    border-color: rgba(246, 224, 94, 0.4);
+}
+
+.rank-4 {
+    background: linear-gradient(145deg, #805ad5 0%, #44337a 100%);
+    border-color: rgba(183, 148, 244, 0.4);
+}
+
+/* THÊM HIỂN THỊ SỐ SAO */
+.rank-5::after {
+    content: '⭐⭐⭐⭐⭐';
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #f6e05e;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+}
+
+.rank-4::after {
+    content: '⭐⭐⭐⭐';
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+    color: #b794f4;
+    text-shadow: 0 0 5px rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+}
+
+.gacha-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+}
+
+/* Hiệu ứng lấp lánh cho rank cao */
+.rank-5::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: shine 4s infinite;
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 100%; }
+    100% { left: 100%; }
+}
+
+/* Khung ảnh tối ưu */
+.char-image-container {
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 20px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    position: relative;
+}
+
+/* Icon mặc định khi không có ảnh */
+.char-image-container::after {
+    content: '👤';
+    font-size: 3rem;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 1;
+}
+
+.char-image-container img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+}
+
+.gacha-card:hover .char-image-container {
+    transform: scale(1.1) rotate(5deg);
+    border-color: var(--white);
+}
+
+.char-name {
+    font-family: 'Bangers', cursive;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+    color: var(--white);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.char-role {
+    font-size: 0.85rem;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 6px 16px;
+    border-radius: 30px;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--white);
 }
 
 /* HỘP THÔNG BÁO */
 .thong-bao-an {
     position: fixed;
-    bottom: -100px;
-    right: 20px;
+    bottom: 30px;
+    right: -400px;
     background: #2f855a;
     color: white;
-    padding: 15px 30px;
-    border-radius: 8px;
-    transition: all 0.5s ease-in-out;
-    z-index: 1000;
-    opacity: 0;
-    pointer-events: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    box-shadow: var(--shadow-lg);
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 2000;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .thong-bao-an.hien-thong-bao {
-    bottom: 20px;
-    opacity: 1;
-    pointer-events: auto;
+    right: 30px;
 }
 
-/* GACHA CARDS */
-.gacha-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 20px;
-    margin-top: 30px;
-}
-
-.gacha-card {
-    position: relative;
-    border-radius: 15px;
-    padding: 20px;
-    text-align: center;
-    color: white;
-    transition: transform 0.3s ease;
-    overflow: hidden;
-    border: 3px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-}
-
-.gacha-card:hover {
-    transform: translateY(-10px) scale(1.05);
-}
-
-/* Image styling for Gacha Cards */
-.char-image-container {
-    width: 100px;
-    height: 100px;
-    margin: 0 auto 15px;
-    border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.5);
-    overflow: hidden;
-    background: #fff;
-}
-
-.char-photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* 5 Sao - Vàng (SSR) */
-.rank-5 {
-    background: linear-gradient(135deg, #f6e05e 0%, #d69e2e 100%);
-    box-shadow: 0 0 20px rgba(236, 201, 75, 0.6);
-}
-
-.rank-5::before {
-    content: "★★★★★";
-    display: block;
-    color: #fff;
-    text-shadow: 0 0 5px orange;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-/* 4 Sao - Tím (SR) */
-.rank-4 {
-    background: linear-gradient(135deg, #b794f4 0%, #6b46c1 100%);
-    box-shadow: 0 0 20px rgba(159, 122, 234, 0.5);
-}
-
-.rank-4::before {
-    content: "★★★★";
-    display: block;
-    color: #fff;
-    text-shadow: 0 0 5px purple;
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
-
-.char-name {
-    font-family: 'Bangers', cursive;
-    font-size: 1.4rem;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.char-role {
-    font-size: 0.9rem;
-    background: rgba(0,0,0,0.2);
-    padding: 2px 10px;
-    border-radius: 20px;
-    display: inline-block;
-}
-
-/* THÔNG ĐIỆP */
-.thong-diep-container {
-    padding: 20px;
-    border-radius: 10px;
-    border-left: 5px solid #c53030;
-    margin-top: 20px;
-}
-
-.loi-nhan {
-    color: #4a5568;
-    margin-bottom: 10px;
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .tieu-de-bao {
+        font-size: 2rem;
+    }
+    .container-menu {
+        flex-direction: column;
+        padding: 10px;
+    }
+    .danh-sach-menu {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    .nut-menu {
+        font-size: 0.85rem;
+        padding: 6px 12px;
+    }
+    .trang-thanh-phan {
+        padding: 25px;
+    }
 }
