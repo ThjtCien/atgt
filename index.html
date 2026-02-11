@@ -113,7 +113,7 @@
 
         <!-- 5. GÓC HỌC SINH -->
         <section id="goc-hoc-sinh" class="trang-thanh-phan">
-            <h2 style="text-align: center; color: #805ad5; margin-bottom: 20px;">Góc Học Sinh & "Muối Biển"</h2>
+            <h2 style="text-align: center; color: #805ad5; margin-bottom: 20px;">Góc Học Sinh</h2>
             
             <div class="thong-diep-container" style="background: #ebf8ff; border-left-color: #3182ce;">
                 <h3 style="color: #2c5282; margin-bottom: 10px;">💡 Bí kíp "Sống sót" trên mạng</h3>
@@ -145,7 +145,7 @@
 
         <!-- 6. THÔNG TIN NHÓM -->
         <section id="nhom-thuc-hien" class="trang-thanh-phan">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #2d3748;">Kết quả triệu hồi</h2>
+            <h2 style="text-align: center; margin-bottom: 20px; color: #2d3748;">Nhóm 8</h2>
             <div class="gacha-container">
                 <!-- Nhân vật 1 -->
                 <div class="gacha-card rank-5">
@@ -153,7 +153,7 @@
                         <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Nhật Bình" class="char-photo">
                     </div>
                     <div class="char-name">Nhật Bình</div>
-                    <div class="char-role">Nội dung góc học sinh,hình ảnh,video,audio</div>
+                    <div class="char-role">Nội dung góc học sinh, hình ảnh, video, audio</div>
                 </div>
                 <!-- Nhân vật 2 -->
                 <div class="gacha-card rank-5">
@@ -184,6 +184,33 @@
 
     </main>
 
+    <!-- CHÂN TRANG (FOOTER) -->
+    <footer class="chan-trang">
+        <div class="container-footer">
+            <div class="footer-cot">
+                <h3>Về chúng tôi</h3>
+                <p>Báo tường điện tử về An toàn thông tin số được thực hiện bởi nhóm 8. Chúng tôi mong muốn mang đến những kiến thức bổ ích để mọi người cùng an toàn trên không gian mạng.</p>
+            </div>
+            <div class="footer-cot">
+                <h3>Liên kết nhanh</h3>
+                <ul>
+                    <li><a href="javascript:void(0)" onclick="chuyenTrang('trang-chu')">Trang chủ</a></li>
+                    <li><a href="javascript:void(0)" onclick="chuyenTrang('moi-nguy')">Mối nguy hại</a></li>
+                    <li><a href="javascript:void(0)" onclick="chuyenTrang('bien-phap')">Biện pháp bảo vệ</a></li>
+                    <li><a href="javascript:void(0)" onclick="chuyenTrang('goc-hoc-sinh')">Góc học sinh</a></li>
+                </ul>
+            </div>
+            <div class="footer-cot">
+                <h3>Khẩu hiệu</h3>
+                <p class="slogan-footer">"Một click chuột sai lầm - Một hậu quả ngàn năm."</p>
+                <p class="slogan-footer">"Cảnh giác là lá chắn vững chắc nhất."</p>
+            </div>
+        </div>
+        <div class="footer-ban-quyen">
+            &copy; 2026 Nhóm 8 ATTT. Mọi quyền được bảo lưu.
+        </div>
+    </footer>
+
     <!-- HỘP THÔNG BÁO -->
     <div id="thong-bao" class="thong-bao-an">
         Cảm ơn bạn đã đăng ký tài liệu thành công!
@@ -201,7 +228,11 @@
             for (var j = 0; j < danhSachNut.length; j++) {
                 danhSachNut[j].classList.remove('dang-chon');
             }
-            document.getElementById('menu-' + idTrang).classList.add('dang-chon');
+          
+            const targetBtn = document.getElementById('menu-' + idTrang);
+            if (targetBtn) {
+                targetBtn.classList.add('dang-chon');
+            }
             window.scrollTo(0, 0);
         }
 
