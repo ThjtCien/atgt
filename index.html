@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo tường: An toàn thông tin số</title>
+    <!-- Nhúng Font chữ từ Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Bangers&display=swap" rel="stylesheet">
+    <!-- LIÊN KẾT ĐẾN TỆP style.css -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- THANH ĐIỀU HƯỚNG -->
+    <nav class="thanh-menu">
+        <div class="container-menu">
+            <a href="#" class="logo">AN TOÀN SỐ</a>
+            <ul class="danh-sach-menu">
+                <li><button onclick="chuyenTrang('trang-chu')" class="nut-menu dang-chon" id="menu-trang-chu">Trang chủ</button></li>
+                <li><button onclick="chuyenTrang('khai-niem')" class="nut-menu" id="menu-khai-niem">Khái niệm</button></li>
+                <li><button onclick="chuyenTrang('moi-nguy')" class="nut-menu" id="menu-moi-nguy">Mối nguy</button></li>
+                <li><button onclick="chuyenTrang('bien-phap')" class="nut-menu" id="menu-bien-phap">Biện pháp</button></li>
+                <li><button onclick="chuyenTrang('goc-hoc-sinh')" class="nut-menu" id="menu-goc-hoc-sinh">Góc học sinh</button></li>
+                <li><button onclick="chuyenTrang('nhom-thuc-hien')" class="nut-menu" id="menu-nhom-thuc-hien">Nhóm</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- NỘI DUNG CHÍNH -->
+    <main class="noi-dung-chinh">
+
+        <!-- 1. TRANG CHỦ -->
+        <section id="trang-chu" class="trang-thanh-phan hien-thi">
+            <div class="banner-chinh">
+                <h1 class="tieu-de-bao">An Toàn Thông Tin Số</h1>
+                <p>Khẩu hiệu: "Cảnh giác trên mạng - An toàn đời thật"</p>
+                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800" alt="An toàn mạng" class="hinh-minh-hoa">
+            </div>
+
+            <div class="khung-dang-ky">
+                <h2 style="text-align: center; margin-bottom: 20px;">Đăng ký nhận tài liệu</h2>
+                <form onsubmit="guiDuLieu(event)">
+                    <div class="nhom-form">
+                        <label>Họ và tên:</label>
+                        <input type="text" id="ho-ten" placeholder="Nhập tên của bạn..." required>
+                    </div>
+                    <div class="nhom-form">
+                        <label>Lớp:</label>
+                        <input type="text" id="lop" placeholder="Nhập lớp..." required>
+                    </div>
+                    <div class="nhom-form">
+                        <label>Email:</label>
+                        <input type="email" id="email" placeholder="Nhập email..." required>
+                    </div>
+                    <button type="submit" class="nut-gui">Đăng ký ngay</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. KHÁI NIỆM -->
+        <section id="khai-niem" class="trang-thanh-phan">
+            <h2 style="color: #2b6cb0;">An toàn thông tin số là gì?</h2>
+            <hr style="margin: 15px 0;">
+            <h3>1. Khái niệm</h3>
+            <p>An toàn thông tin số là bảo vệ thông tin và các hệ thống thông tin tránh bị truy cập, sử dụng, tiết lộ, gián đoạn, sửa đổi hoặc phá hoại trái phép.</p>
+            
+            <h3 style="margin-top: 20px;">2. Video bài học</h3>
+            <div class="vung-video">
+                <video controls width="100%">
+                    <source src="https://baokhanhhoa.vn/file/video/e7837c02857c8ca30185a8c39b582c03/112023/20231123215430video_clip_9-an_toan_trong_moi_truong_so.mp4" type="video/mp4">
+                    Trình duyệt không hỗ trợ video.
+                </video>
+            </div>
+        </section>
+
+        <!-- 3. CÁC MỐI NGUY HIỂM -->
+        <section id="moi-nguy" class="trang-thanh-phan">
+            <h2 style="color: #c53030;">Các mối nguy hiểm thường gặp</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mối nguy hiểm</th>
+                        <th>Đặc điểm nhận dạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Lừa đảo (Phishing)</td><td>Tin nhắn giả danh trúng thưởng.</td></tr>
+                    <tr><td>2</td><td>Tin giả (Fake News)</td><td>Thông tin giật gân, sai sự thật.</td></tr>
+                    <tr><td>3</td><td>Virus & Mã độc</td><td>Thiết bị chạy chậm, mất dữ liệu.</td></tr>
+                    <tr><td>4</td><td>Lộ thông tin</td><td>Bị người lạ biết địa chỉ, số điện thoại.</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 4. BIỆN PHÁP BẢO VỆ -->
+        <section id="bien-phap" class="trang-thanh-phan">
+            <h2 style="color: #2f855a;">Biện pháp bảo vệ bản thân</h2>
+            <ul style="margin: 20px; line-height: 2;">
+                <li>✔️ Sử dụng mật khẩu mạnh.</li>
+                <li>✔️ Không chia sẻ mã OTP cho người khác.</li>
+                <li>✔️ Hạn chế đăng thông tin riêng tư.</li>
+                <li>✔️ Sử dụng xác thực 2 lớp (2FA).</li>
+            </ul>
+            
+            <h3 style="margin-top: 20px;">Nghe Audio Tuyên Truyền</h3>
+            <div class="khung-am-thanh">
+                <audio controls>
+                    <source src="https://cdn.discordapp.com/attachments/1355758044918845520/1471101373369028750/An_Toan_Thong_Tin_-_La_Chan_Thep_Trong_Moi_Truong_So.mp3?ex=698db56b&is=698c63eb&hm=86621c3a0f0bc811d5cb5b2ab94855f6bd90d72e867d2b729c7757e1157a8a65&" type="audio/mpeg">
+                    Trình duyệt không hỗ trợ nghe nhạc.
+                </audio>
+            </div>
+        </section>
+
+        <!-- 5. GÓC HỌC SINH & MUỐI BIỂN (HUMOR) -->
+        <section id="goc-hoc-sinh" class="trang-thanh-phan">
+            <h2 style="text-align: center; color: #805ad5; margin-bottom: 20px;">Góc Học Sinh & "Muối Biển"</h2>
+            
+            <div class="thong-diep-container" style="background: #ebf8ff; border-left-color: #3182ce;">
+                <h3 style="color: #2c5282; margin-bottom: 10px;">💡 Bí kíp "Sống sót" trên mạng</h3>
+                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px;">
+                    📌 <strong>Về mật khẩu:</strong> Mật khẩu nên giống như bàn chải đánh răng: Chọn loại tốt, không dùng chung và nên thay mới định kỳ!
+                </div>
+                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
+                    📌 <strong>Về OTP:</strong> Mã OTP giống như người yêu cũ: Chỉ có giá trị trong vài giây và tuyệt đối đừng bao giờ đưa cho người lạ.
+                </div>
+                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
+                    📌 <strong>Về quà tặng:</strong> Thông báo trúng iPhone 15 thường chỉ có một sự thật: Bạn sắp mất cái điện thoại đang dùng.
+                </div>
+                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
+                    📌 <strong>Về quyền riêng tư:</strong> Đừng công khai mọi thứ lên mạng. Đến cả hacker cũng cần một chút sự bất ngờ khi vào xem trang cá nhân của bạn chứ!
+                </div>
+                <div class="loi-nhan" style="margin-top: 10px;">
+                    📌 <strong>Về WiFi công cộng:</strong> WiFi công cộng miễn phí cũng giống như miếng phô mai trên cái bẫy chuột: Nó miễn phí, nhưng cái giá phải trả có thể rất đắt.
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3 style="color: #2b6cb0; border-bottom: 2px solid #bee3f8; display: inline-block;">✍️ Lời nhắn nhủ</h3>
+                <div style="margin-top: 15px; background: #f7fafc; padding: 15px; border-radius: 8px;">
+                    <p class="loi-nhan">"An toàn thông tin không khó, quan trọng là mình không được chủ quan. Hãy là một cư dân mạng thông thái nhé!"</p>
+                    <p style="text-align: right; font-weight: bold; color: #4a5568;">— Hội những người thích bảo mật</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. THÔNG TIN NHÓM -->
+        <section id="nhom-thuc-hien" class="trang-thanh-phan">
+            <h2 style="text-align: center; margin-bottom: 20px; color: #2d3748;">Đội Ngũ Triệu Hồi</h2>
+            <div class="gacha-container">
+                <!-- Nhân vật 1 -->
+                <div class="gacha-card rank-5">
+                    <div class="char-image-container">
+                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Nhật Bình" class="char-photo">
+                    </div>
+                    <div class="char-name">Nhật Bình</div>
+                    <div class="char-role">Làm màu</div>
+                </div>
+                <!-- Nhân vật 2 -->
+                <div class="gacha-card rank-5">
+                    <div class="char-image-container">
+                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Đức Huy" class="char-photo">
+                    </div>
+                    <div class="char-name">Đức Huy</div>
+                    <div class="char-role">Làm màu</div>
+                </div>
+                <!-- Nhân vật 3 -->
+                <div class="gacha-card rank-5">
+                    <div class="char-image-container">
+                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Chí Thiện" class="char-photo">
+                    </div>
+                    <div class="char-name">Chí Thiện</div>
+                    <div class="char-role">Làm màu</div>
+                </div>
+                <!-- Nhân vật 4 -->
+                <div class="gacha-card rank-4">
+                    <div class="char-image-container">
+                        <img src="https://imgs.search.brave.com/PROgjAIbXj-EY-Nh8BQmQaRr2ODJnSt5CasWGESfUOY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ibGFj/ay1zdGljay1maWd1/cmUtd2Fsa2luZy13/aGl0ZS1iYWNrZ3Jv/dW5kLWQtcmVuZGVy/aW5nLXJlcHJlc2Vu/dHMtYmFzaWMtaHVt/YW4tYWN0aW9uLWRl/c2lnbi1lbGVtZW50/LWJsYWNrLXN0aWNr/LTM3ODEwMjI2OS5q/cGc" alt="Thanh Dũng" class="char-photo">
+                    </div>
+                    <div class="char-name">Thanh Dũng</div>
+                    <div class="char-role">Làm màu</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- HỘP THÔNG BÁO -->
+    <div id="thong-bao" class="thong-bao-an">
+        Cảm ơn bạn đã đăng ký tài liệu thành công!
+    </div>
+
+    <script>
+        function chuyenTrang(idTrang) {
+            var danhSachTrang = document.getElementsByClassName('trang-thanh-phan');
+            for (var i = 0; i < danhSachTrang.length; i++) {
+                danhSachTrang[i].classList.remove('hien-thi');
+            }
+            document.getElementById(idTrang).classList.add('hien-thi');
+
+            var danhSachNut = document.getElementsByClassName('nut-menu');
+            for (var j = 0; j < danhSachNut.length; j++) {
+                danhSachNut[j].classList.remove('dang-chon');
+            }
+            document.getElementById('menu-' + idTrang).classList.add('dang-chon');
+            window.scrollTo(0, 0);
+        }
+
+        function guiDuLieu(suKien) {
+            suKien.preventDefault();
+            var hopThongBao = document.getElementById('thong-bao');
+            hopThongBao.classList.add('hien-thong-bao');
+            setTimeout(function() {
+                hopThongBao.classList.remove('hien-thong-bao');
+            }, 3000);
+            suKien.target.reset();
+        }
+    </script>
+</body>
+</html>
