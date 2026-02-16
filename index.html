@@ -3,247 +3,546 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Báo tường: An toàn thông tin số</title>
-    <!-- Nhúng Font chữ -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Bangers&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Báo Tường: An Toàn Thông Tin Số</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            light: '#f0f7ff',
+                            primary: '#0066cc',
+                            secondary: '#004a99',
+                            accent: '#e6f0ff'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #0066cc;
+            border-radius: 10px;
+        }
+        
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s ease-out;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .article-card {
+            background: white;
+            border: 1px solid #e1e8f0;
+            transition: all 0.3s ease;
+        }
+        
+        .article-card:hover {
+            box-shadow: 0 10px 25px -5px rgba(0, 102, 204, 0.1);
+            border-color: #0066cc;
+        }
+
+        .prose-text {
+            text-align: justify;
+            line-height: 1.8;
+            color: #374151;
+        }
+
+        .nav-active {
+            background-color: #0066cc !important;
+            color: white !important;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-brand-light text-gray-800 font-sans min-h-screen flex flex-col">
 
-    <!-- THANH ĐIỀU HƯỚNG -->
-    <nav class="thanh-menu">
-        <div class="container-menu">
-            <a href="#" class="logo">AN TOÀN SỐ</a>
-            <ul class="danh-sach-menu">
-                <li><button onclick="chuyenTrang('trang-chu')" class="nut-menu dang-chon" id="menu-trang-chu">Trang chủ</button></li>
-                <li><button onclick="chuyenTrang('khai-niem')" class="nut-menu" id="menu-khai-niem">Khái niệm</button></li>
-                <li><button onclick="chuyenTrang('moi-nguy')" class="nut-menu" id="menu-moi-nguy">Mối nguy</button></li>
-                <li><button onclick="chuyenTrang('bien-phap')" class="nut-menu" id="menu-bien-phap">Biện pháp</button></li>
-                <li><button onclick="chuyenTrang('goc-hoc-sinh')" class="nut-menu" id="menu-goc-hoc-sinh">Góc học sinh</button></li>
-                <li><button onclick="chuyenTrang('nhom-thuc-hien')" class="nut-menu" id="menu-nhom-thuc-hien">Nhóm</button></li>
-            </ul>
+    <!-- Header / Navigation -->
+    <header class="sticky top-0 z-50 bg-white shadow-md border-b border-brand-accent">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-3 mb-4 md:mb-0">
+                    <div class="p-2 bg-brand-primary rounded-lg">
+                        <i class="fa-solid fa-user-lock text-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-heading font-bold text-brand-secondary tracking-tight">AN TOÀN SỐ 12/2</h1>
+                        <p class="text-[10px] uppercase tracking-widest text-brand-primary font-bold">Trường THPT Thanh Khê</p>
+                    </div>
+                </div>
+                
+                <nav class="flex flex-wrap justify-center gap-1">
+                    <button onclick="openTab('home')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary nav-active" data-target="home">Trang Chủ</button>
+                    <button onclick="openTab('concept')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary" data-target="concept">Khái Niệm</button>
+                    <button onclick="openTab('dangers')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary" data-target="dangers">Mối Nguy Hiểm</button>
+                    <button onclick="openTab('measures')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary" data-target="measures">Biện Pháp</button>
+                    <button onclick="openTab('student')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary" data-target="student">Góc Học Sinh</button>
+                    <button onclick="openTab('team')" class="nav-btn px-5 py-2 rounded-lg text-sm font-semibold transition-all hover:bg-brand-accent text-brand-secondary" data-target="team">Nhóm Thực Hiện</button>
+                </nav>
+            </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- NỘI DUNG CHÍNH -->
-    <main class="noi-dung-chinh">
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-6xl">
 
         <!-- 1. TRANG CHỦ -->
-        <section id="trang-chu" class="trang-thanh-phan hien-thi">
-            <div class="banner-chinh">
-                <h1 class="tieu-de-bao">An Toàn Thông Tin Số</h1>
-                <p>"Cảnh giác trên mạng - An toàn đời thật"</p>
-                <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800" alt="An toàn mạng" class="hinh-minh-hoa">
-            </div>
+        <section id="home" class="tab-content active">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-white flex flex-col md:flex-row items-center gap-12 overflow-hidden relative">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-brand-accent rounded-full -mr-32 -mt-32 z-0 opacity-50"></div>
+                
+                <div class="md:w-1/2 z-10">
+                    <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-brand-primary text-xs font-bold mb-6">
+                        <span class="relative flex h-2 w-2 mr-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                        </span>
+                        BẢN TIN CÔNG NGHỆ 2026
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-heading font-extrabold text-brand-secondary mb-6 leading-tight">
+                        Kiến Thức Vững Vàng <br>
+                        <span class="text-brand-primary">Lướt Mạng An Tâm</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 mb-8 italic">
+                        "Thông tin là tài sản. Bảo mật là trách nhiệm." - Thông điệp từ dự án báo tường kỷ niệm ngày Chuyển đổi số quốc gia.
+                    </p>
+                    
+                    <div class="flex gap-4">
+                        <button onclick="openTab('concept')" class="bg-brand-primary text-white px-6 py-3 rounded-xl font-bold hover:bg-brand-secondary transition transform hover:-translate-y-1 shadow-lg">Khám phá ngay</button>
+                        <a href="#login" class="border-2 border-brand-primary text-brand-primary px-6 py-3 rounded-xl font-bold hover:bg-brand-primary hover:text-white transition">Đăng nhập</a>
+                    </div>
+                </div>
 
-            <div class="khung-dang-ky">
-                <h2 style="text-align: center; margin-bottom: 20px;">Đăng ký nhận tài liệu</h2>
-                <form onsubmit="guiDuLieu(event)">
-                    <div class="nhom-form">
-                        <label>Họ và tên:</label>
-                        <input type="text" id="ho-ten" placeholder="Nhập tên của bạn..." required>
+                <div class="md:w-1/2 z-10 w-full" id="login">
+                    <div class="bg-brand-accent/50 p-8 rounded-2xl border border-brand-accent shadow-inner">
+                        <h3 class="text-xl font-bold text-brand-secondary mb-6 flex items-center">
+                            <i class="fa-solid fa-user-circle mr-2 text-2xl"></i> Cổng Thành Viên
+                        </h3>
+                        <form class="space-y-4">
+                            <div>
+                                <input type="text" placeholder="Tên đăng nhập / Email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                            </div>
+                            <div>
+                                <input type="password" placeholder="Mật khẩu" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-brand-primary">
+                            </div>
+                            <button type="button" class="w-full bg-brand-secondary text-white py-3 rounded-lg font-bold hover:bg-black transition">VÀO HỆ THỐNG</button>
+                            <div class="flex justify-between text-xs text-brand-primary font-medium">
+                                <a href="#" class="hover:underline">Quên mật khẩu?</a>
+                                <a href="#" class="hover:underline">Tạo tài khoản mới</a>
+                            </div>
+                        </form>
                     </div>
-                    <div class="nhom-form">
-                        <label>Lớp:</label>
-                        <input type="text" id="lop" placeholder="Nhập lớp..." required>
-                    </div>
-                    <div class="nhom-form">
-                        <label>Email:</label>
-                        <input type="email" id="email" placeholder="Nhập email..." required>
-                    </div>
-                    <button type="submit" class="nut-gui">Đăng ký ngay</button>
-                </form>
+                </div>
             </div>
         </section>
 
-        <!-- 2. KHÁI NIỆM -->
-        <section id="khai-niem" class="trang-thanh-phan">
-            <h2 style="color: #2b6cb0;">An toàn thông tin số là gì?</h2>
-            <hr style="margin: 15px 0;">
-            <h3>1. Khái niệm</h3>
-            <p>An toàn thông tin số là bảo vệ thông tin và các hệ thống thông tin tránh bị truy cập, sử dụng, tiết lộ, gián đoạn, sửa đổi hoặc phá hoại trái phép.</p>
+        <!-- 2. KHÁI NIỆM (Mở rộng dài hơn) -->
+        <section id="concept" class="tab-content">
+            <div class="max-w-4xl mx-auto space-y-10">
+                <div class="text-center">
+                    <h2 class="text-3xl font-heading font-bold text-brand-secondary mb-2">ĐỊNH NGHĨA VỀ AN TOÀN THÔNG TIN</h2>
+                    <p class="text-brand-primary font-medium uppercase tracking-widest text-sm">Nền tảng của kỷ nguyên số</p>
+                    <div class="w-20 h-1.5 bg-brand-primary mx-auto mt-4 rounded-full"></div>
+                </div>
+
+                <div class="prose-text space-y-6 bg-white p-10 rounded-2xl shadow-sm border border-gray-100">
+                    <h3 class="text-2xl font-bold text-brand-primary border-b pb-2">1. Định nghĩa hàn lâm và ứng dụng</h3>
+                    <p>
+                        An toàn thông tin số (Cybersecurity) không đơn thuần chỉ là việc đặt mật khẩu cho máy tính. Theo tiêu chuẩn quốc tế, đây là tập hợp các biện pháp kỹ thuật, quy trình và thực thi nhằm bảo vệ các mạng lưới, thiết bị, chương trình và dữ liệu khỏi bị tấn công, hư hại hoặc truy cập trái phép. Trong bối cảnh Việt Nam đang đẩy mạnh chuyển đổi số quốc gia, an toàn thông tin được xem là "lá chắn" sống còn cho mọi hoạt động kinh tế, xã hội.
+                    </p>
+                    <p>
+                        <strong>Mô hình CIA - Kim chỉ nam của bảo mật:</strong> 
+                        Bất kỳ hệ thống an toàn thông tin nào cũng được xây dựng dựa trên ba trụ cột:
+                    </p>
+                    <ul class="list-none space-y-4 ml-4">
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-brand-primary p-2 rounded mr-3 mt-1"><i class="fa-solid fa-eye-slash"></i></span>
+                            <span><strong>Tính bảo mật (Confidentiality):</strong> Đảm bảo dữ liệu nhạy cảm chỉ được truy cập bởi những chủ thể có thẩm quyền. Ví dụ: Tin nhắn cá nhân chỉ bạn và người nhận mới đọc được.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-brand-primary p-2 rounded mr-3 mt-1"><i class="fa-solid fa-file-circle-check"></i></span>
+                            <span><strong>Tính toàn vẹn (Integrity):</strong> Đảm bảo dữ liệu không bị thay đổi, xóa bỏ hoặc chỉnh sửa trái phép trong quá trình lưu trữ và truyền tải. Dữ liệu phải luôn đúng với bản gốc.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="bg-blue-100 text-brand-primary p-2 rounded mr-3 mt-1"><i class="fa-solid fa-clock-rotate-left"></i></span>
+                            <span><strong>Tính sẵn sàng (Availability):</strong> Hệ thống và dữ liệu phải luôn hoạt động ổn định khi người dùng cần đến. Các cuộc tấn công từ chối dịch vụ (DDoS) thường nhắm vào trụ cột này.</span>
+                        </li>
+                    </ul>
+
+                    <h3 class="text-2xl font-bold text-brand-primary border-b pb-2 pt-6">2. Tại sao học sinh là đối tượng trọng yếu?</h3>
+                    <p>
+                        Học sinh THPT thuộc thế hệ Z - những người sinh ra đã gắn liền với Internet. Tuy nhiên, sự "thành thạo thao tác" thường không đi kèm với "thành thạo tư duy bảo mật". Kẻ xấu thường nhắm vào học sinh vì 3 lý do chính:
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-brand-accent p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">Sự tin tưởng ngây thơ</h4>
+                            <p class="text-sm">Học sinh dễ dàng kết bạn với người lạ, tham gia các hội nhóm không rõ nguồn gốc và nhấp vào các liên kết "giật gân".</p>
+                        </div>
+                        <div class="bg-brand-accent p-4 rounded-lg">
+                            <h4 class="font-bold mb-2">Tài nguyên số phong phú</h4>
+                            <p class="text-sm">Dữ liệu cá nhân, tài khoản game giá trị cao, và đặc biệt là thông tin của phụ huynh thông qua thiết bị của học sinh.</p>
+                        </div>
+                    </div>
+                    <p>
+                        Việc trang bị kiến thức an toàn số không chỉ giúp bảo vệ bản thân mà còn là trách nhiệm với gia đình và cộng đồng. Một hành động vô ý như chia sẻ vị trí nhà ở hay số điện thoại có thể dẫn đến những rủi ro thực tế như trộm cắp, tống tiền hoặc quấy rối.
+                    </p>
+
+                    <div class="bg-brand-secondary text-white p-6 rounded-xl mt-8">
+                        <p class="font-bold text-lg mb-2"><i class="fa-solid fa-quote-left mr-2"></i> Thông điệp của chúng tôi:</p>
+                        <p class="italic">"An toàn thông tin không phải là đích đến, đó là một hành trình liên tục của sự cảnh giác và học hỏi."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. MỐI NGUY HIỂM (Mở rộng dài hơn) -->
+        <section id="dangers" class="tab-content">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-brand-secondary mb-2">MẶT TỐI CỦA KHÔNG GIAN MẠNG</h2>
+                <p class="text-red-600 font-bold uppercase tracking-widest text-sm">Nhận diện kẻ thù vô hình</p>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Danger 1 -->
+                <div class="article-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/4">
+                        <div class="bg-red-50 text-red-600 p-6 rounded-2xl text-center">
+                            <i class="fa-solid fa-user-secret text-5xl"></i>
+                            <h4 class="font-bold mt-4 uppercase text-xs">Phishing</h4>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-3/4">
+                        <h3 class="text-2xl font-bold text-brand-secondary mb-3">1. Lừa đảo bằng kĩ thuật xã hội (Social Engineering)</h3>
+                        <div class="prose-text">
+                            <p>Đây là mối nguy hiểm phổ biến nhất. Kẻ tấn công không dùng mã lệnh phức tạp mà dùng "tâm lý học". Chúng tạo ra các kịch bản giả mạo hoàn hảo như: thông báo trúng thưởng, cảnh báo tài khoản bị khóa, hoặc giả danh giáo viên yêu cầu nộp thông tin cá nhân. </p>
+                            <p class="mt-2 text-sm text-gray-500 italic">Dấu hiệu nhận biết: Địa chỉ email người gửi sai một ký tự (ví dụ: gmaiil.com), yêu cầu làm gấp, hoặc đường link dẫn đến một trang web yêu cầu nhập mật khẩu.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger 2 -->
+                <div class="article-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/4">
+                        <div class="bg-orange-50 text-orange-600 p-6 rounded-2xl text-center">
+                            <i class="fa-solid fa-bug text-5xl"></i>
+                            <h4 class="font-bold mt-4 uppercase text-xs">Malware</h4>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-3/4">
+                        <h3 class="text-2xl font-bold text-brand-secondary mb-3">2. Mã độc và Phần mềm gián đoạn</h3>
+                        <div class="prose-text">
+                            <p>Virus, Trojan, Worm và gần đây là Ransomware (mã độc tống tiền). Học sinh thường gặp nguy hiểm khi tải các bản "mod" game hoặc phần mềm bẻ khóa (crack). Các mã độc này có thể âm thầm bật camera, ghi âm bàn phím để lấy mật khẩu ngân hàng hoặc mã hóa toàn bộ hình ảnh kỷ niệm của bạn để đòi tiền chuộc bằng Bitcoin.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger 3 -->
+                <div class="article-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/4">
+                        <div class="bg-blue-50 text-brand-primary p-6 rounded-2xl text-center">
+                            <i class="fa-solid fa-bullhorn text-5xl"></i>
+                            <h4 class="font-bold mt-4 uppercase text-xs">Fake News</h4>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-3/4">
+                        <h3 class="text-2xl font-bold text-brand-secondary mb-3">3. Tin giả và Thao túng tâm lý</h3>
+                        <div class="prose-text">
+                            <p>Tin giả không trực tiếp lấy tiền của bạn nhưng nó phá hủy tư duy. Những thông tin sai lệch về sức khỏe, chính trị hoặc bôi nhọ cá nhân gây ra hậu quả tâm lý nặng nề. Việc vô tình chia sẻ tin giả có thể khiến học sinh vi phạm Luật An ninh mạng, dẫn đến bị phạt hành chính hoặc ảnh hưởng đến hồ sơ học tập.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Danger 4 -->
+                <div class="article-card rounded-2xl p-8 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="w-full md:w-1/4">
+                        <div class="bg-purple-50 text-purple-600 p-6 rounded-2xl text-center">
+                            <i class="fa-solid fa-ghost text-5xl"></i>
+                            <h4 class="font-bold mt-4 uppercase text-xs">Cyberbullying</h4>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-3/4">
+                        <h3 class="text-2xl font-bold text-brand-secondary mb-3">4. Bắt nạt qua mạng và Quấy rối tình dục</h3>
+                        <div class="prose-text">
+                            <p>Không gian mạng cho phép kẻ xấu ẩn danh để tấn công tinh thần. Những bình luận ác ý, việc công khai ảnh nhạy cảm (thật hoặc do AI giả mạo) gây ra trầm cảm và các vấn đề tâm lý nghiêm trọng. Đây là vấn đề nhức nhối cần sự phối hợp giữa gia đình và nhà trường.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. BIỆN PHÁP (Mở rộng dài hơn) -->
+        <section id="measures" class="tab-content">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-heading font-bold text-brand-secondary mb-2">CẨM NANG BẢO VỆ CHỦ ĐỘNG</h2>
+                <p class="text-green-600 font-bold uppercase tracking-widest text-sm">Trở thành chuyên gia bảo mật của chính mình</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 1: Pháo đài Mật khẩu</h3>
+                        <p class="text-sm">Đừng dùng mật khẩu kiểu "123456" hay "ngaythangnamsinh". Hãy sử dụng mật khẩu câu (Passphrase). Ví dụ: <strong>"ToiYeuAnToanSo@12a1!"</strong>. Sử dụng trình quản lý mật khẩu để không phải ghi nhớ quá nhiều.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 2: Tường lửa cá nhân 2 lớp</h3>
+                        <p class="text-sm">Luôn bật Xác thực 2 yếu tố (2FA). Kể cả khi kẻ xấu biết mật khẩu, chúng vẫn không thể vào tài khoản nếu không có mã gửi về điện thoại hoặc ứng dụng Google Authenticator của bạn.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 3: Tư duy hoài nghi tích cực</h3>
+                        <p class="text-sm">Trước mỗi yêu cầu cung cấp thông tin hoặc nhấp link, hãy tự hỏi: "Tại sao họ cần thông tin này?", "Nguồn này có thực sự tin cậy?". Kiểm tra địa chỉ URL: <strong>https://</strong> mới là kết nối an toàn.</p>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 4: Quản lý "Dấu chân số"</h3>
+                        <p class="text-sm">Mỗi bài đăng là một dấu vết. Hãy định kỳ dọn dẹp danh sách bạn bè, xóa các ứng dụng không dùng đến trên Facebook (App permissions) vì chúng có thể đang âm thầm thu thập dữ liệu của bạn.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 5: Cập nhật là sinh mạng</h3>
+                        <p class="text-sm">Các bản cập nhật phần mềm (Windows, iOS, Android) chứa các bản vá lỗ hổng bảo mật. Đừng nhấn "Nhắc tôi sau", hãy cập nhật ngay khi có thể để tránh bị hacker khai thác lỗi hệ thống.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-8 border-brand-primary shadow-sm article-text">
+                        <h3 class="font-bold text-xl text-brand-secondary mb-2">Quy tắc 6: Wifi công cộng - Cẩn trọng tối đa</h3>
+                        <p class="text-sm">Tránh thực hiện các giao dịch quan trọng hoặc đăng nhập tài khoản khi dùng Wifi quán cafe. Nếu bắt buộc, hãy sử dụng VPN (Mạng riêng ảo) để mã hóa dữ liệu truyền đi.</p>
+                    </div>
+                </div>
+            </div>
             
-            <h3 style="margin-top: 20px;">2. Video bài học</h3>
-            <div class="vung-video">
-                <video controls width="100%">
-                    <source src="https://baokhanhhoa.vn/file/video/e7837c02857c8ca30185a8c39b582c03/112023/20231123215430video_clip_9-an_toan_trong_moi_truong_so.mp4" type="video/mp4">
-                    Trình duyệt không hỗ trợ video.
-                </video>
-            </div>
-        </section>
-
-        <!-- 3. CÁC MỐI NGUY HIỂM -->
-        <section id="moi-nguy" class="trang-thanh-phan">
-            <h2 style="color: #c53030;">Các mối nguy hiểm thường gặp</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>STT</th>
-                        <th>Mối nguy hiểm</th>
-                        <th>Đặc điểm nhận dạng</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Lừa đảo (Phishing)</td><td>Tin nhắn giả danh trúng thưởng.</td></tr>
-                    <tr><td>2</td><td>Tin giả (Fake News)</td><td>Thông tin giật gân, sai sự thật.</td></tr>
-                    <tr><td>3</td><td>Virus & Mã độc</td><td>Thiết bị chạy chậm, mất dữ liệu.</td></tr>
-                    <tr><td>4</td><td>Lộ thông tin</td><td>Bị người lạ biết địa chỉ, số điện thoại.</td></tr>
-                </tbody>
-            </table>
-        </section>
-
-        <!-- 4. BIỆN PHÁP BẢO VỆ -->
-        <section id="bien-phap" class="trang-thanh-phan">
-            <h2 style="color: #2f855a;">Biện pháp bảo vệ bản thân</h2>
-            <ul style="margin: 20px; line-height: 2;">
-                <li>✔️ Sử dụng mật khẩu mạnh.</li>
-                <li>✔️ Không chia sẻ mã OTP cho người khác.</li>
-                <li>✔️ Hạn chế đăng thông tin riêng tư.</li>
-                <li>✔️ Sử dụng xác thực 2 lớp (2FA).</li>
-            </ul>
-            
-            <h3 style="margin-top: 20px;">Nghe Audio Tuyên Truyền</h3>
-            <div class="khung-am-thanh">
-                <audio controls>
-                    <source src="https://cdn.discordapp.com/attachments/1355758044918845520/1471101373369028750/An_Toan_Thong_Tin_-_La_Chan_Thep_Trong_Moi_Truong_So.mp3?ex=698db56b&is=698c63eb&hm=86621c3a0f0bc811d5cb5b2ab94855f6bd90d72e867d2b729c7757e1157a8a65&" type="audio/mpeg">
-                    Trình duyệt không hỗ trợ nghe nhạc.
-                </audio>
+            <div class="mt-12 p-8 bg-brand-primary rounded-2xl text-white">
+                <h3 class="text-2xl font-bold mb-4">Bảng so sánh: An toàn vs Nguy hiểm</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-b border-blue-400">
+                                <th class="py-3 px-4">Tình huống</th>
+                                <th class="py-3 px-4">Hành động Sai</th>
+                                <th class="py-3 px-4">Hành động Đúng</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-blue-400">
+                            <tr>
+                                <td class="py-3 px-4">Nhận link trúng thưởng</td>
+                                <td class="py-3 px-4 text-red-200">Nhấn vào xem ngay</td>
+                                <td class="py-3 px-4 text-green-200">Xóa tin nhắn, báo cáo spam</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Dùng chung mật khẩu</td>
+                                <td class="py-3 px-4 text-red-200">Dùng 1 mk cho FB, Gmail, Ngân hàng</td>
+                                <td class="py-3 px-4 text-green-200">Mỗi tài khoản 1 mật khẩu riêng biệt</td>
+                            </tr>
+                            <tr>
+                                <td class="py-3 px-4">Đăng ảnh đi du lịch</td>
+                                <td class="py-3 px-4 text-red-200">Check-in trực tiếp địa chỉ chính xác</td>
+                                <td class="py-3 px-4 text-green-200">Về nhà rồi mới đăng ảnh, ẩn vị trí cụ thể</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </section>
 
         <!-- 5. GÓC HỌC SINH -->
-        <section id="goc-hoc-sinh" class="trang-thanh-phan">
-            <h2 style="text-align: center; color: #805ad5; margin-bottom: 20px;">Góc Học Sinh</h2>
-            
-            <div class="thong-diep-container" style="background: #ebf8ff; border-left-color: #3182ce;">
-                <h3 style="color: #2c5282; margin-bottom: 10px;">💡 Bí kíp "Sống sót" trên mạng</h3>
-                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px;">
-                    📌 <strong>Về mật khẩu:</strong> Mật khẩu nên giống như bàn chải đánh răng: Chọn loại tốt, không dùng chung và nên thay mới định kỳ!
+        <section id="student" class="tab-content">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="md:col-span-2 space-y-6">
+                    <h2 class="text-2xl font-bold text-brand-secondary border-l-4 border-brand-primary pl-4">Thông điệp tuyên truyền</h2>
+                    <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                        <p class="prose-text italic text-lg leading-relaxed mb-6 text-gray-600">
+                            "Mạng xã hội không phải là nhật ký riêng tư, nó là một cái loa phóng thanh khổng lồ. Hãy chắc chắn rằng những gì bạn nói và làm trên đó sẽ không khiến bạn hối hận vào 10 năm sau."
+                        </p>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-brand-accent rounded-full flex items-center justify-center text-brand-primary font-bold">Kh</div>
+                            <div>
+                                <p class="font-bold text-brand-secondary text-sm">Khô gà đè tem</p>
+                                <p class="text-xs text-gray-500">Ộ i i</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="bg-brand-primary p-6 rounded-xl text-white text-center">
+                            <i class="fa-solid fa-microphone text-3xl mb-3"></i>
+                            <h4 class="font-bold mb-2">Podcast tuần này</h4>
+                            <p class="text-xs opacity-80">Chủ đề: "Tôi đã lấy lại nick bị hack như thế nào?"</p>
+                        </div>
+                        <div class="bg-brand-secondary p-6 rounded-xl text-white text-center">
+                            <i class="fa-solid fa-gamepad text-3xl mb-3"></i>
+                            <h4 class="font-bold mb-2">Game bảo mật</h4>
+                            <p class="text-xs opacity-80">Vượt qua 10 câu hỏi để nhận huy hiệu "Hiệp sĩ số"</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
-                    📌 <strong>Về OTP:</strong> Mã OTP giống như người yêu cũ: Chỉ có giá trị trong vài giây và tuyệt đối đừng bao giờ đưa cho người lạ.
-                </div>
-                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
-                    📌 <strong>Về quà tặng:</strong> Thông báo trúng iPhone 15 thường chỉ có một sự thật: Bạn sắp mất cái điện thoại đang dùng.
-                </div>
-                <div class="loi-nhan" style="border-bottom: 1px dashed #bee3f8; padding-bottom: 10px; margin-top: 10px;">
-                    📌 <strong>Về quyền riêng tư:</strong> Đừng công khai mọi thứ lên mạng. Đến cả hacker cũng cần một chút sự bất ngờ khi vào xem trang cá nhân của bạn chứ!
-                </div>
-                <div class="loi-nhan" style="margin-top: 10px;">
-                    📌 <strong>Về WiFi công cộng:</strong> WiFi công cộng miễn phí cũng giống như miếng phô mai trên cái bẫy chuột: Nó miễn phí, nhưng cái giá phải trả có thể rất đắt.
-                </div>
-            </div>
-
-            <div style="margin-top: 30px;">
-                <h3 style="color: #2b6cb0; border-bottom: 2px solid #bee3f8; display: inline-block;">✍️ Lời nhắn nhủ</h3>
-                <div style="margin-top: 15px; background: #f7fafc; padding: 15px; border-radius: 8px;">
-                    <p class="loi-nhan">"An toàn thông tin không khó, quan trọng là mình không được chủ quan. Hãy là một cư dân mạng thông thái nhé!"</p>
-                    <p style="text-align: right; font-weight: bold; color: #4a5568;">— Hội những người thích bảo mật</p>
+                
+                <div class="space-y-6">
+                    <h2 class="text-2xl font-bold text-brand-secondary">Slogan tiêu biểu</h2>
+                    <div class="space-y-3">
+                        <div class="p-4 bg-white rounded-lg shadow-sm border border-brand-accent font-bold text-brand-primary text-center">
+                            AN TOÀN MẠNG - HẠNH PHÚC THỰC
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm border border-brand-accent font-bold text-brand-primary text-center">
+                            ĐỪNG LÀM MỒI CHO HACKER
+                        </div>
+                        <div class="p-4 bg-white rounded-lg shadow-sm border border-brand-accent font-bold text-brand-primary text-center">
+                            CLICK CHẬM LẠI - NGHĨ NHIỀU HƠN
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 bg-yellow-50 border border-yellow-200 rounded-xl mt-6">
+                        <h4 class="text-yellow-800 font-bold mb-2"><i class="fa-solid fa-lightbulb mr-2"></i>Bạn có biết?</h4>
+                        <p class="text-xs text-yellow-700 leading-relaxed">Theo báo cáo, 80% các vụ tấn công mạng bắt nguồn từ mật khẩu yếu hoặc thói quen nhấp link lạ của người dùng.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 6. THÔNG TIN NHÓM -->
-        <section id="nhom-thuc-hien" class="trang-thanh-phan">
-            <h2 style="text-align: center; margin-bottom: 20px; color: #2d3748;">Nhóm 8</h2>
-            <div class="gacha-container">
-                <!-- Nhân vật 1 -->
-                <div class="gacha-card rank-5">
-                    <div class="char-image-container">
-                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Nhật Bình" class="char-photo">
-                    </div>
-                    <div class="char-name">Nhật Bình</div>
-                    <div class="char-role">Nội dung góc học sinh, hình ảnh, video, audio</div>
-                </div>
-                <!-- Nhân vật 2 -->
-                <div class="gacha-card rank-5">
-                    <div class="char-image-container">
-                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Đức Huy" class="char-photo">
-                    </div>
-                    <div class="char-name">Đức Huy</div>
-                    <div class="char-role">Nội dung mối nguy và biện pháp bảo vệ</div>
-                </div>
-                <!-- Nhân vật 3 -->
-                <div class="gacha-card rank-5">
-                    <div class="char-image-container">
-                        <img src="https://imgs.search.brave.com/CXcGTcaiK5QGzA6tsE2VVk7S5zxm8aBEiz18w9Xat1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzNkL2Q4/LzY2LzNkZDg2NmYx/ZjNiMTg3ODkwMTli/Y2E4NDg3NzA2Zjhk/LmpwZw" alt="Chí Thiện" class="char-photo">
-                    </div>
-                    <div class="char-name">Chí Thiện</div>
-                    <div class="char-role">Nội dung trang chủ và khái niệm</div>
-                </div>
-                <!-- Nhân vật 4 -->
-                <div class="gacha-card rank-4">
-                    <div class="char-image-container">
-                        <img src="https://imgs.search.brave.com/PROgjAIbXj-EY-Nh8BQmQaRr2ODJnSt5CasWGESfUOY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aHVt/YnMuZHJlYW1zdGlt/ZS5jb20vYi9ibGFj/ay1zdGljay1maWd1/cmUtd2Fsa2luZy13/aGl0ZS1iYWNrZ3Jv/dW5kLWQtcmVuZGVy/aW5nLXJlcHJlc2Vu/dHMtYmFzaWMtaHVt/YW4tYWN0aW9uLWRl/c2lnbi1lbGVtZW50/LWJsYWNrLXN0aWNr/LTM3ODEwMjI2OS5q/cGc" alt="Thanh Dũng" class="char-photo">
-                    </div>
-                    <div class="char-name">Thanh Dũng</div>
-                    <div class="char-role">Chỉ đạo bố cục CSS</div>
-                </div>
+        <section id="team" class="tab-content">
+            <h2 class="text-3xl font-heading font-bold text-center text-brand-secondary mb-10">NHÓM THỰC HIỆN DỰ ÁN</h2>
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-gray-100">
+                <table class="w-full text-left">
+                    <thead class="bg-brand-primary text-white">
+                        <tr>
+                            <th class="p-5 font-bold">STT</th>
+                            <th class="p-5 font-bold">Thành viên</th>
+                            <th class="p-5 font-bold">Lớp</th>
+                            <th class="p-5 font-bold">Nhiệm vụ chính</th>
+                            <th class="p-5 font-bold">Trạng thái</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr class="hover:bg-brand-light transition">
+                            <td class="p-5 font-medium">01</td>
+                            <td class="p-5 font-bold text-brand-secondary"> Nhật Bình</td>
+                            <td class="p-5 text-gray-600">12/2</td>
+                            <td class="p-5 text-gray-600">Xây dựng trang web, Lập trình logic</td>
+                            <td class="p-5"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">Hoàn thành</span></td>
+                        </tr>
+                        <tr class="hover:bg-brand-light transition">
+                            <td class="p-5 font-medium">02</td>
+                            <td class="p-5 font-bold text-brand-secondary">Chí Thiện</td>
+                            <td class="p-5 text-gray-600">12/2</td>
+                            <td class="p-5 text-gray-600">Biên tập nội dung kiến thức, Viết bài</td>
+                            <td class="p-5"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">Hoàn thành</span></td>
+                        </tr>
+                        <tr class="hover:bg-brand-light transition">
+                            <td class="p-5 font-medium">03</td>
+                            <td class="p-5 font-bold text-brand-secondary">Thanh Dũng</td>
+                            <td class="p-5 text-gray-600">12/2</td>
+                            <td class="p-5 text-gray-600">Thiết kế đồ họa, Ảnh minh họa, Audio</td>
+                            <td class="p-5"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">Hoàn thành</span></td>
+                        </tr>
+                        <tr class="hover:bg-brand-light transition">
+                            <td class="p-5 font-medium">04</td>
+                            <td class="p-5 font-bold text-brand-secondary">Đức Huy</td>
+                            <td class="p-5 text-gray-600">12/2</td>
+                            <td class="p-5 text-gray-600">Biên tập nội dung kiến thức, Viết bài</td>
+                            <td class="p-5"><span class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase">Hoàn thành</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-10 p-6 bg-white rounded-2xl border border-gray-100 text-center">
+                <p class="text-gray-500 font-medium italic">"Mọi thành viên đều đóng góp với tinh thần trách nhiệm cao nhất vì một môi trường số an toàn cho học sinh."</p>
             </div>
         </section>
 
     </main>
 
-    <!-- CHÂN TRANG (FOOTER) -->
-    <footer class="chan-trang">
-        <div class="container-footer">
-            <div class="footer-cot">
-                <h3>Về chúng tôi</h3>
-                <p>Báo tường điện tử về An toàn thông tin số được thực hiện bởi nhóm 8. Chúng tôi mong muốn mang đến những kiến thức bổ ích để mọi người cùng an toàn trên không gian mạng.</p>
+    <!-- Footer -->
+    <footer class="bg-white border-t border-brand-accent py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <i class="fa-solid fa-shield-halved text-3xl text-brand-primary"></i>
+                        <h3 class="text-xl font-heading font-bold text-brand-secondary">AN TOÀN THÔNG TIN SỐ</h3>
+                    </div>
+                    <p class="text-gray-600 text-sm max-w-sm mb-4">
+                        Dự án giáo dục công nghệ dành cho học sinh THPT, giúp trang bị kỹ năng sinh tồn trên không gian mạng hiện đại. 
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition">
+                            <i class="fa-brands fa-youtube"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-brand-accent flex items-center justify-center text-brand-primary hover:bg-brand-primary hover:text-white transition">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-brand-secondary mb-4">Mục lục</h4>
+                    <ul class="space-y-2 text-sm text-gray-600">
+                        <li><a href="#" onclick="openTab('concept')" class="hover:text-brand-primary">Lý thuyết cơ bản</a></li>
+                        <li><a href="#" onclick="openTab('dangers')" class="hover:text-brand-primary">Phòng chống tội phạm</a></li>
+                        <li><a href="#" onclick="openTab('measures')" class="hover:text-brand-primary">Thực hành bảo vệ</a></li>
+                        <li><a href="#" onclick="openTab('student')" class="hover:text-brand-primary">Góc thảo luận</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-brand-secondary mb-4">Thông tin liên hệ</h4>
+                    <p class="text-sm text-gray-600 mb-2">Trường THPT Thanh Khê</p>
+                    <p class="text-sm text-gray-600 mb-2">Đội Dự án Lớp 12/2</p>
+                    <p class="text-sm text-brand-primary font-bold">Email: dungcothu@abc.edu.vn</p>
+                </div>
             </div>
-            <div class="footer-cot">
-                <h3>Liên kết nhanh</h3>
-                <ul>
-                    <li><a href="javascript:void(0)" onclick="chuyenTrang('trang-chu')">Trang chủ</a></li>
-                    <li><a href="javascript:void(0)" onclick="chuyenTrang('moi-nguy')">Mối nguy hại</a></li>
-                    <li><a href="javascript:void(0)" onclick="chuyenTrang('bien-phap')">Biện pháp bảo vệ</a></li>
-                    <li><a href="javascript:void(0)" onclick="chuyenTrang('goc-hoc-sinh')">Góc học sinh</a></li>
-                </ul>
+            <div class="mt-12 pt-8 border-t border-gray-100 text-center text-xs text-gray-400">
+                Thiết kế & Nội dung bởi Nhóm 8 - 12/2 &copy; 2026. Phục vụ mục đích học tập.
             </div>
-            <div class="footer-cot">
-                <h3>Khẩu hiệu</h3>
-                <p class="slogan-footer">"Một click chuột sai lầm - Một hậu quả ngàn năm."</p>
-                <p class="slogan-footer">"Cảnh giác là lá chắn vững chắc nhất."</p>
-            </div>
-        </div>
-        <div class="footer-ban-quyen">
-            &copy; 2026 Nhóm 8 ATTT. Mọi quyền được bảo lưu.
         </div>
     </footer>
 
-    <!-- HỘP THÔNG BÁO -->
-    <div id="thong-bao" class="thong-bao-an">
-        Cảm ơn bạn đã đăng ký tài liệu thành công!
-    </div>
-
+    <!-- JavaScript logic -->
     <script>
-        function chuyenTrang(idTrang) {
-            var danhSachTrang = document.getElementsByClassName('trang-thanh-phan');
-            for (var i = 0; i < danhSachTrang.length; i++) {
-                danhSachTrang[i].classList.remove('hien-thi');
-            }
-            document.getElementById(idTrang).classList.add('hien-thi');
+        function openTab(tabName) {
+            // Hide all
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
 
-            var danhSachNut = document.getElementsByClassName('nut-menu');
-            for (var j = 0; j < danhSachNut.length; j++) {
-                danhSachNut[j].classList.remove('dang-chon');
-            }
-          
-            const targetBtn = document.getElementById('menu-' + idTrang);
-            if (targetBtn) {
-                targetBtn.classList.add('dang-chon');
-            }
-            window.scrollTo(0, 0);
-        }
+            // Show target
+            const target = document.getElementById(tabName);
+            if(target) target.classList.add('active');
 
-        function guiDuLieu(suKien) {
-            suKien.preventDefault();
-            var hopThongBao = document.getElementById('thong-bao');
-            hopThongBao.classList.add('hien-thong-bao');
-            setTimeout(function() {
-                hopThongBao.classList.remove('hien-thong-bao');
-            }, 3000);
-            suKien.target.reset();
+            // Nav active state
+            const btns = document.querySelectorAll('.nav-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('nav-active');
+                if(btn.getAttribute('data-target') === tabName) {
+                    btn.classList.add('nav-active');
+                }
+            });
+
+            // Smooth scroll top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
     </script>
 </body>
